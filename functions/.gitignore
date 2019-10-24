@@ -2,7 +2,11 @@
 **/*.js
 **/*.js.map
 
-# Typescript v1 declaration files
+# Typescript declaration files
 typings/
+types
+
+# Build info
+tsconfig.tsbuildinfo
 
 node_modules/

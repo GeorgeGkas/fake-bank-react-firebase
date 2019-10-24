@@ -2,10 +2,10 @@
   "name": "functions",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
-    "build": "tsc",
-    "serve": "npm run build && firebase serve --only functions",
-    "shell": "npm run build && firebase functions:shell",
-    "start": "npm run shell",
+    "build": "rimraf tsconfig.tsbuildinfo && rimraf lib && tsc --project tsconfig.json",
+    "serve": "yarn build && firebase serve --only functions",
+    "shell": "yarn build && firebase functions:shell",
+    "start": "yarn shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
@@ -18,7 +18,10 @@
     "firebase-functions": "^3.1.0"
   },
   "devDependencies": {
+    "rimraf": "^3.0.0",
     "tslint": "^5.12.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.2.2"
   },
   "private": true
