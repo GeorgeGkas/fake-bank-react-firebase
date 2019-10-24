@@ -2,6 +2,9 @@
 **/*.js
 **/*.js.map
 
+# Not build scripts
+!replace-config.js
+
 # Typescript declaration files
 typings/
 types
