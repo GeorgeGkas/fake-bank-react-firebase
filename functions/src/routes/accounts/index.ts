@@ -14,7 +14,7 @@ const router = express.Router()
 router.route('/').post(createAccount)
 
 /**
- * Delete an existing project.
+ * Delete an existing account.
  */
 router.route('/').delete(verify, deleteAccount)
 
