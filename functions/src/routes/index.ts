@@ -1,9 +1,11 @@
 import * as express from 'express'
+import accounts from './accounts'
 
 const router = express.Router()
 
-router.get('/info', (_, res) => {
-  return res.send('Hello world')
-})
+/**
+ * API endpoints used for accounts logic.
+ */
+router.use('/accounts', accounts)
 
 export default router

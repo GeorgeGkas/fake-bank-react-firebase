@@ -9,6 +9,18 @@ declare module 'express' {
    */
   interface AugmentedRequest extends express.Request {
     /**
+     * In routes where the account is needed,
+     * the request object is extending with the account's info.
+     */
+    account?: {
+      id: string
+      holder: string
+      balance: number
+      lastWithdrawalDate: string
+      currentWithdrawalBalance: number
+    }
+
+    /**
      * To avoid requiring firestore module in each file,
      * we register the firestore instance to application
      * settings that can be retrieved in request object.
