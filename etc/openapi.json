@@ -1,0 +1,407 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Fake Bank REST API services",
+    "description": "REST API of Fake Bank app",
+    "license": {
+      "name": "MIT"
+    },
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://europe-west1-distributed-systems-ex1.cloudfunctions.net/api"
+    }
+  ],
+  "paths": {
+    "/accounts": {
+      "get": {
+        "summary": "Get account balance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Account ID"
+                  },
+                  "holder": {
+                    "type": "string",
+                    "description": "Account holder name"
+                  }
+                },
+                "required": ["id", "holder"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "number",
+                      "description": "Account balance"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not get balance for account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not find account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not relate account id with its holder."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "holder": {
+                    "type": "string",
+                    "description": "Account holder name"
+                  }
+                },
+                "required": ["holder"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "ID of the created account",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Account ID"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not create new account."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an existing project",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Account ID"
+                  },
+                  "holder": {
+                    "type": "string",
+                    "description": "Account holder name"
+                  }
+                },
+                "required": ["id", "holder"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Account deleted successfully"
+          },
+          "500": {
+            "description": "Internal Server Error ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not delete account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not find account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not relate account id with its holder."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/deposit": {
+      "patch": {
+        "summary": "Deposit to account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Account ID"
+                  },
+                  "holder": {
+                    "type": "string",
+                    "description": "Account holder name"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Deposit amount"
+                  }
+                },
+                "required": ["id", "holder", "amount"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Deposit operation completed successfully"
+          },
+          "500": {
+            "description": "Internal Server Error ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not deposit \"{amount}\" to account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not find account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not relate account id with its holder."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/withdrawal": {
+      "patch": {
+        "summary": "Withdrawal from account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Account ID"
+                  },
+                  "holder": {
+                    "type": "string",
+                    "description": "Account holder name"
+                  },
+                  "amount": {
+                    "type": "number",
+                    "description": "Withdrawal amount"
+                  }
+                },
+                "required": ["id", "holder", "amount"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Withdrawal operation completed successfully"
+          },
+          "500": {
+            "description": "Internal Server Error ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not withdrawal \"{amount}\" from account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not find account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not relate account id with its holder."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
