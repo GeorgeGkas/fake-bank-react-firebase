@@ -71,7 +71,7 @@
       }
     },
     "/accounts/delete": {
-      "delete": {
+      "post": {
         "summary": "Delete an existing account",
         "requestBody": {
           "required": true,
