@@ -11,7 +11,7 @@ const router = express.Router()
 /**
  * Create a new account.
  */
-router.route('/').post(createAccount)
+router.route('/create').post(createAccount)
 
 /**
  * Delete an existing account.

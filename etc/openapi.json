@@ -14,7 +14,7 @@
     }
   ],
   "paths": {
-    "/accounts": {
+    "/accounts/create": {
       "post": {
         "summary": "Create a new account",
         "requestBody": {
