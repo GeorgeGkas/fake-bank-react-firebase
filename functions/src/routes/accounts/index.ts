@@ -16,7 +16,7 @@ router.route('/').post(createAccount)
 /**
  * Delete an existing account.
  */
-router.route('/').delete(verify, deleteAccount)
+router.route('/delete').post(verify, deleteAccount)
 
 /**
  * Get account balance.
