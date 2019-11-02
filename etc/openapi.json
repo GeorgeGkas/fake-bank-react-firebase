@@ -15,96 +15,6 @@
   ],
   "paths": {
     "/accounts": {
-      "get": {
-        "summary": "Get account balance",
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "Account ID"
-                  },
-                  "holder": {
-                    "type": "string",
-                    "description": "Account holder name"
-                  }
-                },
-                "required": ["id", "holder"]
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Account balance",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "data": {
-                      "type": "number",
-                      "description": "Account balance"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Internal Server Error ",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "default": "Could not get balance for account with id \"{id}\"."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "default": "Could not find account with id \"{id}\"."
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "default": "Could not relate account id with its holder."
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
       "post": {
         "summary": "Create a new account",
         "requestBody": {
@@ -196,6 +106,98 @@
                     "message": {
                       "type": "string",
                       "default": "Could not delete account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not find account with id \"{id}\"."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not relate account id with its holder."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/accounts/balance": {
+      "post": {
+        "summary": "Get account balance",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "description": "Account ID"
+                  },
+                  "holder": {
+                    "type": "string",
+                    "description": "Account holder name"
+                  }
+                },
+                "required": ["id", "holder"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Account balance",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "number",
+                      "description": "Account balance"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error ",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "default": "Could not get balance for account with id \"{id}\"."
                     }
                   }
                 }

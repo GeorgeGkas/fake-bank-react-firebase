@@ -20,8 +20,10 @@ router.route('/').delete(verify, deleteAccount)
 
 /**
  * Get account balance.
+ * Use of POST request to allow account credentials be past
+ * as request body.
  */
-router.route('/').get(verify, balance)
+router.route('/balance').post(verify, balance)
 
 /**
  * Deposit to account.
