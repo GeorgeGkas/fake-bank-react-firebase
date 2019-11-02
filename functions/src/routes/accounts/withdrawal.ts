@@ -29,7 +29,9 @@ function canWithdrawal(
 ): boolean {
   return (
     account.currentWithdrawalBalance + withdrawalAmount <=
-    ALLOWED_WITHDRAWAL_PER_DAY
+      ALLOWED_WITHDRAWAL_PER_DAY ||
+    (dayHasChangedFrom(account.lastWithdrawalDate) &&
+      withdrawalAmount <= ALLOWED_WITHDRAWAL_PER_DAY)
   )
 }
 
@@ -60,11 +62,9 @@ export default async function withdrawal(
       !multipleOf50or20(withdrawalAmount) ||
       !canWithdrawal(account, withdrawalAmount)
     ) {
-      return res
-        .status(403)
-        .send({
-          message: `Could not withdrawal "${withdrawalAmount}" from account with id "${account.id}".`,
-        })
+      return res.status(403).send({
+        message: `Could not withdrawal "${withdrawalAmount}" from account with id "${account.id}".`,
+      })
     }
 
     const docRef = req.app
@@ -86,7 +86,7 @@ export default async function withdrawal(
        * has not changed, else zero it.
        */
       currentWithdrawalBalance: dayHasChangedFrom(account.lastWithdrawalDate)
-        ? 0
+        ? withdrawalAmount
         : account.currentWithdrawalBalance + withdrawalAmount,
 
       /**
@@ -104,10 +104,8 @@ export default async function withdrawal(
     return res.sendStatus(204)
   } catch (e) {
     logger.error(e)
-    return res
-      .status(500)
-      .send({
-        message: `Could not withdrawal "${withdrawalAmount}" from account with id "${account.id}".`,
-      })
+    return res.status(500).send({
+      message: `Could not withdrawal "${withdrawalAmount}" from account with id "${account.id}".`,
+    })
   }
 }
