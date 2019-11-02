@@ -54,6 +54,10 @@ export default async function verify(
     return next()
   } catch (e) {
     logger.error(e)
-    return res.sendStatus(500)
+    return res
+      .status(500)
+      .send({
+        message: `Something went wrong with the request! Please check again your data.`,
+      })
   }
 }
