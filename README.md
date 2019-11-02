@@ -1,6 +1,6 @@
 # Fake Bank APP
 
-A (deadly) simple React + Firebase banking application.
+A (dead) simple React + Firebase banking application.
 
 The front-end was developed with React library. The back-end was designed using Firebase Cloud Functions, wrapped through Express framework to provide a clean REST design. Requests are handled with Axios library. Data are managed in Firestore database (provided by the Firebase platform).
 
