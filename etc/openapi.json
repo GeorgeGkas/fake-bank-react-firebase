@@ -68,9 +68,11 @@
             }
           }
         }
-      },
+      }
+    },
+    "/accounts/delete": {
       "delete": {
-        "summary": "Delete an existing project",
+        "summary": "Delete an existing account",
         "requestBody": {
           "required": true,
           "content": {
