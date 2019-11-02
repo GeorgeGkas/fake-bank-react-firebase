@@ -83,7 +83,8 @@ export default async function withdrawal(
 
       /**
        * Increase the current withdrawal balance if the day
-       * has not changed, else zero it.
+       * has not changed, else set it with the withdrawal amount of
+       * this operation.
        */
       currentWithdrawalBalance: dayHasChangedFrom(account.lastWithdrawalDate)
         ? withdrawalAmount
